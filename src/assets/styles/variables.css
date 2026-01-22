@@ -1,0 +1,13 @@
+body {
+  /* Colors base */
+  --color-white-base: 255, 255, 255;
+  --color-gray-light-base: 238, 238, 238;
+  --color-orange-base: 255, 98, 65;
+
+  /* Colors */
+  --color-white: rgb(var(--color-white-base));
+  --color-gray-light: rgb(var(--color-gray-light-base));
+
+  --color-orange: rgb(var(--color-orange-base));
+  --color-orange-12: rgb(var(--color-orange-base), 12%);
+}
