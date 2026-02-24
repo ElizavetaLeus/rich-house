@@ -10,7 +10,7 @@ const router = createRouter({
       component: () => import('@/pages/HomePage.vue'),
     },
     {
-      path: 'projects',
+      path: '/projects',
       name: EnumRouteName.PROJECTS,
       component: () => import('@/pages/ProjectsPage.vue'),
     },
@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import('@/pages/BuiltHousesPage.vue'),
     },
     {
-      path: '/contscts',
+      path: '/contacts',
       name: EnumRouteName.CONTACTS,
       component: () => import('@/pages/ContactsPage.vue'),
     },
