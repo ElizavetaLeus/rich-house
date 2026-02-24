@@ -1,0 +1,5 @@
+body {
+  color: var(--color-black);
+  font-family: var(--font-family-primary), sans-serif;
+  background-color: var(--color-white);
+}
