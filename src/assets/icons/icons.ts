@@ -1,4 +1,4 @@
 export type IconKeys = keyof typeof icons;
 export const icons = {
-  arrow: '<svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.25" d="M0.707031 0.707031L4.70703 4.70703L8.70703 0.707031" stroke="black" stroke-width="2"/></svg>',
+  arrow: '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8L10 12L14 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
 };
