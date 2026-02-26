@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'ButtonTurbo';
+    src: url('./fonts/Button-Turbo/Baton Turbo Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Если есть жирный */
+@font-face {
+    font-family: 'НазваниеШрифта';
+    src: url('./fonts/Button-Turbo/Baton Turbo Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Если есть курсив */
+/* @font-face {
+    font-family: 'НазваниеШрифта';
+    src: url() format('opentype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+} */

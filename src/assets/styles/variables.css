@@ -1,6 +1,6 @@
 body {
   /* Fonts */
-  --font-family-primary: 'Roboto', sans-serif;
+  --font-family-primary: 'ButtonTurbo', sans-serif;
 
   /* Colors base */
   --color-white-base: 255, 255, 255;
@@ -11,7 +11,9 @@ body {
   /* Colors */
   --color-white: rgb(var(--color-white-base));
   --color-gray-light: rgb(var(--color-gray-light-base));
+
   --color-black: rgb(var(--color-black-base));
+  --color-black-25: rgb(var(--color-black-base), 25%);
 
   --color-orange: rgb(var(--color-orange-base));
   --color-orange-12: rgb(var(--color-orange-base), 12%);
