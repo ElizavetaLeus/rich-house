@@ -59,7 +59,6 @@ const emitListener = () => {
   color: var(--color-white);
   background-color: var(--color-orange);
   padding-block: 16px;
-  padding-inline: 32px;
   border-radius: 6px;
   border: none;
   font-size: 18px;
