@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'ButtonTurbo';
-    src: url('./fonts/Button-Turbo/Baton Turbo Regular.otf') format('opentype');
+    src: url('./fonts/Button-Turbo/BatonTurbo-Regular.otf') format('otf');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -8,8 +8,8 @@
 
 /* Если есть жирный */
 @font-face {
-    font-family: 'НазваниеШрифта';
-    src: url('./fonts/Button-Turbo/Baton Turbo Bold.otf') format('opentype');
+    font-family: 'ButtonTurbo';
+    src: url('./fonts/Button-Turbo/BatonTurbo-Bold.otf') format('otf');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
