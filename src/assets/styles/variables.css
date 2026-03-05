@@ -7,10 +7,12 @@ body {
   --color-gray-light-base: 238, 238, 238;
   --color-orange-base: 255, 98, 65;
   --color-black-base: 27, 32, 30;
+  --color-gray-base: 229, 229, 229;
 
   /* Colors */
   --color-white: rgb(var(--color-white-base));
   --color-gray-light: rgb(var(--color-gray-light-base));
+  --color-gray:rgb(var(--color-gray-base));
 
   --color-black: rgb(var(--color-black-base));
   --color-black-25: rgb(var(--color-black-base), 25%);
