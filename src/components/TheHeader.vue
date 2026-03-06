@@ -26,13 +26,13 @@ import AppVector from '@/components/ui/AppVector.vue';
 import vectors from '@/assets/vectors/vectors';
 import AppButton from './ui/AppButton.vue';
 import AppMenu from './ui/AppMenu.vue';
-
 </script>
 
 <style module>
 .header {
   padding-block: 10px;
   display: flex;
+  width: 100%;
 }
 .logoWrapper {
   padding-inline: 28px;
@@ -41,6 +41,7 @@ import AppMenu from './ui/AppMenu.vue';
 .headerMenu {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .feedback {
   display: flex;
@@ -50,9 +51,13 @@ import AppMenu from './ui/AppMenu.vue';
   padding-inline-end: 56px;
 }
 .phone {
-  font-size: 18px;
+  font-size: 17px;
+  max-width: 162px;
+  width: 100%;
 }
 .callButton {
   max-width: 187px;
+  width: 100%;
+  padding-inline: 24px;
 }
 </style>
