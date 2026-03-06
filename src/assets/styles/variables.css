@@ -15,7 +15,9 @@ body {
   --color-gray:rgb(var(--color-gray-base));
 
   --color-black: rgb(var(--color-black-base));
+  --color-bldck-10: rgb(var(--color-black-base), 10%);
   --color-black-25: rgb(var(--color-black-base), 25%);
+  --color-black-70: rgb(var(--color-black-base), 70%);
 
   --color-orange: rgb(var(--color-orange-base));
   --color-orange-12: rgb(var(--color-orange-base), 12%);
