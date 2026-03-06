@@ -38,7 +38,7 @@ withDefaults(defineProps<Props>(), {
 <style module>
 .listItem {
   --height-item: 20px;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1;
   position: relative;
   height: var(--height-item);

@@ -61,7 +61,7 @@ const emitListener = () => {
   padding-block: 16px;
   border-radius: 6px;
   border: none;
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
   height: 53px;
   transition: 0.3s;
