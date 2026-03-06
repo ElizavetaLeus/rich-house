@@ -1,10 +1,7 @@
 <template>
   <div :class="$style.rangeContainer">
-    <!-- Блок с ценой -->
     <div :class="$style.valueBlock">
       <span :class="$style.valueLabel">{{ label }}</span>
-      
-      <!-- Показываем отформатированное число, когда не редактируем -->
       <div
         v-if="!isEditing"
         :class="$style.valueDisplay"
@@ -12,8 +9,6 @@
       >
         {{ formattedPrice }}
       </div>
-      
-      <!-- Поле ввода для редактирования -->
       <input
         v-else
         ref="inputRef"
@@ -28,8 +23,6 @@
         :class="$style.valueInput"
       />
     </div>
-
-    <!-- Ползунок -->
     <input
       type="range"
       :min="min"
@@ -48,15 +41,10 @@ import { priceFormatter } from '@/helpers/price';
 import { ref, watch, computed, nextTick } from 'vue';
 
 interface Props {
-  /** Подпись над числом (например: "Цена до, ₽" или "Вес, кг") */
   label: string
-  /** Минимальное значение */
   min?: number
-  /** Максимальное значение */
   max?: number
-  /** Шаг изменения */
   step?: number
-  /** Текущее значение */
   modelValue?: number
 }
 
@@ -135,7 +123,7 @@ const stopEditing = () => {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 16px 32px;
+  padding: 16px 32px 0 32px;
   width: 100%;
   background: var(--color-white);
 }
