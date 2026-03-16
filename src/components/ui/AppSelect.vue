@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.root" v-click-outside="closeSelect">
+  <div v-click-outside="closeSelect()">
     <div :class="$style.placeholder">{{ placeholder }}</div>
     
     <div :class="$style.selected" @click="isShown = !isShown">
@@ -63,16 +63,11 @@ const closeSelect = () => {
 </script>
 
 <style module>
-.root {
-  padding: 32px 16px;
-}
-
 .placeholder {
   font-size: 16px;
   color: var(--color-black-25);
   padding: 0 12px 4px 12px;
 }
-
 .selected {
   display: flex;
   align-items: center;
@@ -83,17 +78,14 @@ const closeSelect = () => {
   user-select: none;
   cursor: pointer;
 }
-
 .value {
   font-size: 16px;
   transition: color 0.2s;
   color: var(--color-black);
 }
-
 .valueEmpty {
   color: var(--color-black-25);
 }
-
 .icon {
   transition: 0.3s;
   filter: brightness(0);
@@ -109,7 +101,6 @@ const closeSelect = () => {
   background: var(--color-white);
   box-shadow: 0 4px 12px var(--color-black-25);
 }
-
 .option {
   padding: 12px;
   cursor: pointer;
