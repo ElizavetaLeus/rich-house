@@ -62,7 +62,14 @@ withDefaults(defineProps<Props>(), {
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
-  border: 1px var(--color-orange) solid;
+  background: var(--color-white-70);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-orange-30);
+  box-shadow: 0 10px 30px -5px rgba(var(--color-black-base), 0.15),
+              0 5px 15px rgba(var(--color-black-base), 0.05);
+  padding: 8px 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s, top 0.3s;
 }
 .icon {
   width: 20px;
@@ -78,12 +85,32 @@ withDefaults(defineProps<Props>(), {
   opacity: 1;
   visibility: visible;
   top: var(--height-item);
+  transform: translateY(0); 
+}
+.underListItem {
+  padding: 0;
 }
 .underListItemLink {
   display: block;
-  padding-block: 4px;
+  padding: 10px 20px;
+  color: var(--color-black);
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
-.underListItem {
-  padding: 10px 5px;
+.underListItemLink:hover {
+  background: var(--color-orange-10);
+  color: var(--color-orange);
+  padding-left: 24px;
+}
+.underListItem:not(:last-child) .underListItemLink {
+  border-bottom: 1px solid var(--color-black-10);
+}
+.underListItemLink:active {
+  background: var(--color-orange-12);
+  transform: scale(0.98);
 }
 </style>

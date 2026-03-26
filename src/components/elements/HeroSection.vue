@@ -19,10 +19,14 @@
       />
       <AppSelect
         :options="options"
-        @changeOption="console.log($event)"
         :class="$style.filter"
+        @changeOption="console.log($event)"
       />
-      <AppButton text="Подобрать проект" :class="$style.button"/>
+      <AppButton 
+        text="Подобрать проект" 
+        :class="$style.button"
+        :maxWidth="219"
+      />
     </div>
   </div>
 </template>
@@ -46,8 +50,6 @@ const options = [
 
 <style module>
 .container {
-  padding-inline: 282px;
-  padding-block-end: 100px;
   background-image: linear-gradient(
     rgba(0, 0, 0, 0.2),
     rgba(0, 0, 0, 0.2)
@@ -56,10 +58,7 @@ const options = [
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  /* min-height: 100vh; */
-  /* max-height: 594px;
-  width: 100%; */
-  display: flow-root;
+  padding: 132px 282px 100px 282px;
 }
 .title {
   max-width: 755px;
@@ -67,7 +66,6 @@ const options = [
   font-size: 64px;
   font-weight: 500;
   line-height: 100%;
-  margin-top: 132px;
 }
 .filtersWrapper {
   height: 88px;
@@ -85,7 +83,6 @@ const options = [
   border-right: 1px solid var(--color-gray);
 }
 .button {
-  max-width: 219px;
   margin-inline-start: 40px;
 }
 </style>
