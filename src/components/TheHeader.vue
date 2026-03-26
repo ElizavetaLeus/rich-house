@@ -7,6 +7,7 @@
     </RouterLink>
     <div :class="$style.headerMenu">
       <AppMenu />
+
       <div :class="$style.feedback">
         <a href="tel:+79286003320" :class="$style.phone">+7 (928) 600-33-20</a>
         <AppButton
@@ -14,10 +15,10 @@
           size="small"
           colour="secondary"
           :class="$style.callButton"
+          :maxWidth="187"
         />
       </div>
     </div>
-
   </header>
 </template>
 
@@ -30,34 +31,31 @@ import AppMenu from './ui/AppMenu.vue';
 
 <style module>
 .header {
-  padding-block: 10px;
   display: flex;
   width: 100%;
 }
 .logoWrapper {
-  padding-inline: 28px;
+  padding: 10px 28px;
   border-inline-end: 1px solid var(--color-gray-light);
 }
 .headerMenu {
-  display: flex;
   justify-content: space-between;
+  display: flex;
   width: 100%;
+  padding-inline: 56px;
 }
 .feedback {
   display: flex;
   gap: 48px;
   align-items: center;
   justify-content: center;
-  padding-inline-end: 56px;
 }
 .phone {
-  font-size: 17px;
-  max-width: 162px;
-  width: 100%;
+  font-size: 18px;
+  width: 162px;
 }
 .callButton {
-  max-width: 187px;
   width: 100%;
-  padding-inline: 24px;
+  white-space: nowrap;
 }
 </style>
