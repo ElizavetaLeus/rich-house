@@ -12,14 +12,16 @@
       <input
         v-else
         ref="inputRef"
-        type="number"
+        type="text"
         :min="min"
         :max="max"
         :step="step"
-        v-model.number="editValue"
+        :value="displayValue"
         @input="handleNumberInput"
         @blur="stopEditing"
         @keydown.enter="stopEditing"
+        @keydown.delete="handleDelete"
+        @keydown.backspace="handleDelete"
         :class="$style.valueInput"
       />
     </div>
@@ -28,7 +30,7 @@
       :min="min"
       :max="max"
       :step="step"
-      v-model="sliderValue"
+      :value="sliderValue"
       :class="$style.rangeSlider"
       @input="handleSliderInput"
       :style="{ '--fill-percentage': fillPercentage + '%' }"
@@ -64,57 +66,126 @@ const emit = defineEmits<Emits>();
 const isEditing = ref(false);
 const editValue = ref(props.modelValue);
 const inputRef = ref<HTMLInputElement | null>(null);
+const sliderValue = ref(props.modelValue);
+const rawInputValue = ref(''); // Храним "сырое" значение без пробелов
 
 const formattedPrice = computed(() => {
   return priceFormatter(sliderValue.value);
 });
 
+// Отформатированное значение для отображения в input
+const displayValue = computed(() => {
+  if (!isEditing.value) return '';
+  return priceFormatter(editValue.value);
+});
+
+// Функция для парсинга только цифр
+const parseOnlyDigits = (value: string) => {
+  const digits = value.replace(/\D/g, '');
+  return digits ? Number(digits) : 0;
+};
+
+// Функция для ограничения значения
+const clampValue = (value: number) => {
+  if (value < props.min) {
+    return props.min;
+  }
+  if (value > props.max) {
+    return props.max;
+  }
+  return value;
+};
+
 const fillPercentage = computed(() => {
   return ((sliderValue.value - props.min) / (props.max - props.min)) * 100;
 });
 
-const sliderValue = ref(props.modelValue);
-
 watch(() => props.modelValue, (newValue) => {
   sliderValue.value = newValue;
   editValue.value = newValue;
+  rawInputValue.value = String(newValue);
+  emit('update:modelValue', newValue);
 });
 
-// Ползунок двигается
-const handleSliderInput = () => {
-  sliderValue.value = Number(sliderValue.value);
-  editValue.value = sliderValue.value;
-  emit('update:modelValue', Number(sliderValue.value));
+// Ползунок
+const handleSliderInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const value = Number(target.value);
+  
+  sliderValue.value = value;
+  editValue.value = value;
+  rawInputValue.value = String(value);
+  emit('update:modelValue', value);
 };
 
 // Начало редактирования
 const startEditing = () => {
   editValue.value = sliderValue.value;
+  rawInputValue.value = String(sliderValue.value);
   isEditing.value = true;
   
   nextTick(() => {
-    inputRef.value?.focus();
+    const input = inputRef.value;
+    if (input) {
+      input.focus();
+      // Ставим курсор в конец
+      setTimeout(() => {
+        input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+    }
   });
 };
-
-// Ввод числа
-const handleNumberInput = () => {
-  sliderValue.value = editValue.value;
-  emit('update:modelValue', Number(editValue.value));
+const handleDelete = (event: KeyboardEvent) => {
+  const input = event.target as HTMLInputElement;
+  const cursorPos = input.selectionStart || 0;
+  
+  // Удаляем пробелы из строки для подсчета позиции
+  const valueWithoutSpaces = input.value.replace(/\s/g, '');
+  
+  nextTick(() => {
+    const newInput = inputRef.value;
+    if (newInput) {
+      const newValueWithoutSpaces = newInput.value.replace(/\s/g, '');
+      let newPos = cursorPos;
+      if (newValueWithoutSpaces.length < valueWithoutSpaces.length) {
+        newPos = Math.max(0, cursorPos - 1);
+      }
+      newInput.setSelectionRange(newPos, newPos);
+    }
+  });
+};
+const handleNumberInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const cursorPos = target.selectionStart || 0;
+  const textBeforeCursor = target.value.substring(0, cursorPos);
+  const spacesBeforeCursor = (textBeforeCursor.match(/\s/g) || []).length;
+  const numericValue = parseOnlyDigits(target.value);
+  editValue.value = numericValue;
+  rawInputValue.value = String(numericValue);
+  
+  nextTick(() => {
+    const input = inputRef.value;
+    if (input) {
+      const newTextBeforeCursor = input.value.substring(0, cursorPos);
+      const newSpacesBeforeCursor = (newTextBeforeCursor.match(/\s/g) || []).length;
+      let newPos = cursorPos + (newSpacesBeforeCursor - spacesBeforeCursor);
+      newPos = Math.min(newPos, input.value.length);
+      input.setSelectionRange(newPos, newPos);
+    }
+  });
 };
 
 // Конец редактирования
 const stopEditing = () => {
   isEditing.value = false;
   
-  if (editValue.value < props.min) {
-    editValue.value = props.min;
-  } else if (editValue.value > props.max) {
-    editValue.value = props.max;
-  }
+  // Применяем ограничение
+  const clampedValue = clampValue(editValue.value);
   
-  sliderValue.value = editValue.value;
-  emit('update:modelValue', Number(editValue.value));
+  editValue.value = clampedValue;
+  sliderValue.value = clampedValue;
+  rawInputValue.value = String(clampedValue);
+  emit('update:modelValue', clampedValue);
 };
 </script>
 
@@ -147,31 +218,20 @@ const stopEditing = () => {
   line-height: 125%;
   cursor: text;
   padding: 0;
-  border-bottom: 2px solid transparent;
   transition: border-color 0.2s;
+  border-bottom: 2px solid transparent;
 }
-
-.valueDisplay:hover {
-  border-bottom-color: #e0e0e0;
-}
-
-/* Поле ввода */
 .valueInput {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 450;
   color: var(--color-black);
-  line-height: 1.2;
+  line-height: 125%;
   background: transparent;
   border: none;
-  border-bottom: 2px solid var(--color-orange);
   padding: 0;
   width: 100%;
   outline: none;
-  font-family: inherit;
-}
-
-.valueInput:focus {
-  border-bottom-color: var(--color-orange);
+  border-bottom: 2px solid transparent;
 }
 
 .valueInput::-webkit-outer-spin-button,
@@ -184,11 +244,11 @@ const stopEditing = () => {
   -moz-appearance: textfield;
 }
 
-/* Ползунок */
 .rangeSlider {
   width: 100%;
   height: 4px;
   -webkit-appearance: none;
+  appearance: none;
   background: linear-gradient(
     to right, 
     var(--color-orange) 0%,
@@ -198,8 +258,9 @@ const stopEditing = () => {
   );
   border-radius: 3px;
   outline: none;
+  margin: 0;
+  padding: 0;
 }
-
 .rangeSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 24px;
@@ -209,13 +270,11 @@ const stopEditing = () => {
   cursor: pointer;
   transition: all 0.2s;
 }
-
 .rangeSlider::-webkit-slider-thumb:hover {
   transform: scale(1.15);
   filter: brightness(0.9);
   box-shadow: 0 0 10px var(--color-orange);
 }
-
 .rangeSlider::-moz-range-thumb {
   width: 24px;
   height: 24px;
@@ -225,7 +284,6 @@ const stopEditing = () => {
   cursor: pointer;
   transition: all 0.2s;
 }
-
 .rangeSlider::-moz-range-thumb:hover {
   transform: scale(1.15);
   filter: brightness(0.9);
