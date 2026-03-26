@@ -11,7 +11,6 @@
 <script setup lang="ts">
 import { computed, useCssModule } from 'vue';
 
-type ButtonSize = 'large' | 'default' | 'small';
 type ButtonType = 'default' | 'text';
 type ButtonColour = 'default'| 'secondary' | 'transparent'
 
@@ -19,7 +18,6 @@ interface Props {
   text: string,
   type?: ButtonType,
   colour?: ButtonColour,
-  size?: ButtonSize,
   maxWidth?: number,
 }
 interface Emits {
@@ -28,7 +26,6 @@ interface Emits {
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'default',
-  size: 'default',
   colour: 'default',
   maxWidth: 0,
 });
@@ -38,8 +35,6 @@ const $style = useCssModule();
 const classList = computed(() => {
   return [
     $style.button,
-    props.size === 'large' && $style.buttonSizeLarge,
-    props.size === 'small' && $style.buttonSizeSmall,
     props.type === 'text' && $style.buttonTypeText,
     props.colour === 'secondary' && $style.colourSecondary,
   ];
@@ -58,27 +53,21 @@ const emitListener = () => {
 .button {
   color: var(--color-white);
   background-color: var(--color-orange);
-  padding-block: 16px;
-  padding-inline: 32px;
+  padding-inline: 24px;
   border-radius: 6px;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
   width: 100%;
-  height: 53px;
+  height: 50px;
   transition: 0.3s;
   line-height: 1;
   max-width: var(--max-width, 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .button:hover {
   opacity: 90%;
-}
-.buttonSizeLarge {
-  padding-block: 16px;
-  /* height: 54px; */
-}
-.buttonSizeSmall {
-  padding-block: 12px;
-  height: 48px;
 }
 .buttonTypeText {
   padding: 0;
