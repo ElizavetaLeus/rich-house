@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { DropdownMenuListItem } from '@/types/DropdownMenuListItem';
 import AppMenuItem from './AppMenuItem.vue';
-import { EnumRouteName } from '@/enums/enum-route-name';
+import { EnumRouteName } from '@/router/enum-route-name';
 
 interface Menu extends DropdownMenuListItem {
     children?: DropdownMenuListItem[],
@@ -40,7 +40,6 @@ const menu: Menu[] = [
 .menu {
   display: flex;
   gap: 48px;
-  padding-inline-start: 56px;
   align-items: center;
   justify-content: center;
 }

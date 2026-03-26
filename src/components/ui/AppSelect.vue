@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="closeSelect()">
+  <div v-click-outside="closeSelect">
     <div :class="$style.placeholder">{{ placeholder }}</div>
     
     <div :class="$style.selected" @click="isShown = !isShown">

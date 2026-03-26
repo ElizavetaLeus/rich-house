@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { EnumRouteName } from '@/enums/enum-route-name';
+import { EnumRouteName } from '@/router/enum-route-name';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
